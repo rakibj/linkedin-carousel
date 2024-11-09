@@ -2,8 +2,8 @@
 
 import { Slide } from "./Slide";
 import CarouselPages from "./components/CarouselPages";
+import LinkedInPostHeader from "./components/LinkedInPostHeader";
 import Sidebar from "./components/Sidebar";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -14,14 +14,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import useEmblaCarousel from "embla-carousel-react";
 import {
-  MessageCircle,
-  ThumbsUp,
-  Share2,
-  Send,
   ChevronLeft,
   ChevronRight,
+  MessageCircle,
+  Send,
+  Share2,
+  ThumbsUp,
 } from "lucide-react";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function Component() {
   const slideDatabase: Slide[] = [
@@ -123,17 +123,7 @@ export default function Component() {
       <div className="flex-1 p-6 overflow-y-auto">
         <div className="max-w-xl mx-auto bg-white rounded-lg shadow">
           {/* LinkedIn Post Header */}
-          <div className="p-4 flex items-center space-x-3">
-            <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <div>
-              <h3 className="font-semibold">AI Carousel Creator</h3>
-              <p className="text-sm text-gray-500">1,234 followers</p>
-            </div>
-          </div>
-
+          <LinkedInPostHeader />
           <Separator />
 
           {/* Carousel */}
