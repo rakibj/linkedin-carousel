@@ -10,33 +10,30 @@ import React from "react";
 const exportAsPDF = async (pdfRef: HTMLDivElement) => {
   if (!pdfRef) return;
 
-  // Get all slides
-  const slides = pdfRef.querySelectorAll(".embla__slide");
+  const jpegQuality = 1;
 
-  // Capture the first slide to determine width and height for the PDF pages
+  const slides = pdfRef.querySelectorAll(".embla__slide");
   const firstSlideCanvas = await html2canvas(slides[0] as HTMLElement, {
-    scale: 2,
+    scale: 1.5,
   });
   const slideWidth = firstSlideCanvas.width;
   const slideHeight = firstSlideCanvas.height;
 
-  // Create a PDF with the exact dimensions of a slide
   const pdf = new jsPDF({
     orientation: "portrait",
     unit: "px",
     format: [slideWidth, slideHeight],
+    compress: true,
   });
 
   for (let i = 0; i < slides.length; i++) {
     const slide = slides[i] as HTMLElement;
 
-    // Capture each slide
-    const canvas = await html2canvas(slide, { scale: 2 });
-    const imgData = canvas.toDataURL("image/png");
+    const canvas = await html2canvas(slide, { scale: 1.5 });
+    const imgData = canvas.toDataURL("image/jpeg", jpegQuality);
 
-    // Add image to PDF, add a new page if it's not the first slide
     if (i > 0) pdf.addPage([slideWidth, slideHeight]);
-    pdf.addImage(imgData, "PNG", 0, 0, slideWidth, slideHeight);
+    pdf.addImage(imgData, "JPEG", 0, 0, slideWidth, slideHeight);
   }
 
   pdf.save("embla-slides.pdf");
