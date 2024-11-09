@@ -11,6 +11,7 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import useEmblaCarousel from "embla-carousel-react";
+import { jsPDF } from "jspdf";
 import {
   MessageCircle,
   ThumbsUp,
@@ -94,7 +95,27 @@ export default function Component() {
       },
     ]);
   };
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    slides.forEach((slide, index) => {
+      if (index > 0) doc.addPage(); // Add a new page for each slide
 
+      // Set background gradient (simulated with a solid color)
+      doc.setFillColor(173, 216, 230); // Light blue (similar to 'bg-gradient-to-br from-blue-100')
+      doc.rect(0, 0, 210, 297, "F"); // Fill the entire page background
+
+      // Title styling (mimicking 'text-3xl font-bold mb-4 text-gray-800')
+      doc.setFontSize(24);
+      doc.setTextColor(50, 50, 50); // Dark gray (similar to text-gray-800)
+      doc.text(slide.title, 20, 40);
+
+      // Content styling (mimicking 'text-xl text-gray-600')
+      doc.setFontSize(18);
+      doc.setTextColor(100, 100, 100); // Lighter gray (similar to text-gray-600)
+      doc.text(slide.content, 20, 60);
+    });
+    doc.save("carousel.pdf");
+  };
   const deleteSlide = (id: number) => {
     if (slides.length > 1) {
       setSlides(slides.filter((slide) => slide.id !== id));
@@ -116,6 +137,9 @@ export default function Component() {
     <div className="flex h-screen bg-gray-100">
       {/* Settings Sidebar */}
       <div className="w-80 bg-white p-6 border-r overflow-y-auto">
+        <Button variant="outline" size="sm" onClick={downloadPDF}>
+          Download PDF
+        </Button>
         <div className="space-y-6">
           <div>
             <h2 className="text-xl font-bold mb-4">AI Carousel Generator</h2>
