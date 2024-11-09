@@ -19,7 +19,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 interface Slide {
   id: number;
@@ -58,6 +58,7 @@ export default function Component() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+  const pdfRef = useRef<HTMLDivElement>(null);
 
   const scrollTo = useCallback(
     (index: number) => emblaApi && emblaApi.scrollTo(index),
@@ -116,7 +117,11 @@ export default function Component() {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Settings Sidebar */}
-      <Sidebar isGenerating={isGenerating} generateContent={generateContent} />
+      <Sidebar
+        isGenerating={isGenerating}
+        generateContent={generateContent}
+        pdfRef={pdfRef.current!}
+      />
 
       {/* Main Content Area */}
       <div className="flex-1 p-6 overflow-y-auto">
@@ -136,18 +141,20 @@ export default function Component() {
           <Separator />
 
           {/* Carousel */}
-          <div className="embla overflow-hidden" ref={emblaRef}>
-            <div className="embla__container flex">
-              {slides.map((slide) => (
-                <div key={slide.id} className="embla__slide flex-[0_0_100%]">
-                  <div className="aspect-square flex flex-col justify-center p-8 bg-gradient-to-br from-blue-100 to-purple-100">
-                    <h2 className="text-3xl font-bold mb-4 text-gray-800">
-                      {slide.title}
-                    </h2>
-                    <p className="text-xl text-gray-600">{slide.content}</p>
+          <div ref={pdfRef}>
+            <div className="embla overflow-hidden" ref={emblaRef}>
+              <div className="embla__container flex">
+                {slides.map((slide) => (
+                  <div key={slide.id} className="embla__slide flex-[0_0_100%]">
+                    <div className="aspect-square flex flex-col justify-center p-8 bg-gradient-to-br from-blue-100 to-purple-100">
+                      <h2 className="text-3xl font-bold mb-4 text-gray-800">
+                        {slide.title}
+                      </h2>
+                      <p className="text-xl text-gray-600">{slide.content}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
 
