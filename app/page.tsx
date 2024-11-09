@@ -1,5 +1,7 @@
 "use client";
 
+import { Slide } from "./Slide";
+import CarouselPages from "./components/CarouselPages";
 import Sidebar from "./components/Sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -20,12 +22,6 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useState, useEffect, useCallback, useRef } from "react";
-
-interface Slide {
-  id: number;
-  title: string;
-  content: string;
-}
 
 export default function Component() {
   const slideDatabase: Slide[] = [
@@ -141,22 +137,7 @@ export default function Component() {
           <Separator />
 
           {/* Carousel */}
-          <div ref={pdfRef}>
-            <div className="embla overflow-hidden" ref={emblaRef}>
-              <div className="embla__container flex">
-                {slides.map((slide) => (
-                  <div key={slide.id} className="embla__slide flex-[0_0_100%]">
-                    <div className="aspect-square flex flex-col justify-center p-8 bg-gradient-to-br from-blue-100 to-purple-100">
-                      <h2 className="text-3xl font-bold mb-4 text-gray-800">
-                        {slide.title}
-                      </h2>
-                      <p className="text-xl text-gray-600">{slide.content}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <CarouselPages pdfRef={pdfRef} emblaRef={emblaRef} slides={slides} />
 
           {/* Carousel Navigation */}
           <div className="px-4 py-2 flex items-center space-x-2">

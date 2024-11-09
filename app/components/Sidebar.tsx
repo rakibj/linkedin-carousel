@@ -39,15 +39,13 @@ const exportAsPDF = async (pdfRef: HTMLDivElement) => {
   pdf.save("embla-slides.pdf");
 };
 
-const Sidebar = ({
-  isGenerating,
-  generateContent,
-  pdfRef,
-}: {
+interface Props {
   isGenerating: boolean;
   generateContent: () => void;
   pdfRef: HTMLDivElement;
-}) => {
+}
+
+const Sidebar = ({ isGenerating, generateContent, pdfRef }: Props) => {
   return (
     <>
       <div className="w-80 bg-white p-6 border-r overflow-y-auto">
