@@ -2,7 +2,8 @@
 
 import { Slide } from "./Slide";
 import CarouselPages from "./components/CarouselPages";
-import LinkedInPostHeader from "./components/LinkedInPostHeader";
+import LinkedInPostFooter from "./components/LinkedinPostFooter";
+import LinkedInPostHeader from "./components/LinkedinPostHeader";
 import Sidebar from "./components/Sidebar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,14 +14,7 @@ import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import useEmblaCarousel from "embla-carousel-react";
-import {
-  ChevronLeft,
-  ChevronRight,
-  MessageCircle,
-  Send,
-  Share2,
-  ThumbsUp,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function Component() {
@@ -153,31 +147,7 @@ export default function Component() {
           </div>
 
           {/* LinkedIn Post Footer */}
-          <div className="p-4">
-            <div className="flex justify-between text-gray-500 mb-2">
-              <span>42 Likes</span>
-              <span>12 Comments</span>
-            </div>
-            <Separator className="my-2" />
-            <div className="flex justify-between">
-              <Button variant="ghost" size="sm" className="flex-1">
-                <ThumbsUp className="mr-2 h-4 w-4" />
-                Like
-              </Button>
-              <Button variant="ghost" size="sm" className="flex-1">
-                <MessageCircle className="mr-2 h-4 w-4" />
-                Comment
-              </Button>
-              <Button variant="ghost" size="sm" className="flex-1">
-                <Share2 className="mr-2 h-4 w-4" />
-                Share
-              </Button>
-              <Button variant="ghost" size="sm" className="flex-1">
-                <Send className="mr-2 h-4 w-4" />
-                Send
-              </Button>
-            </div>
-          </div>
+          <LinkedInPostFooter />
         </div>
 
         {/* Slide Controls */}
