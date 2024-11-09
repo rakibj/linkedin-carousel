@@ -5,14 +5,10 @@ import CarouselPages from "./components/CarouselPages";
 import LinkedInPostFooter from "./components/LinkedinPostFooter";
 import LinkedInPostHeader from "./components/LinkedinPostHeader";
 import Sidebar from "./components/Sidebar";
+import SlideControls from "./components/SlideControls";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Slider } from "@/components/ui/slider";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -54,7 +50,25 @@ export default function Component() {
     (index: number) => emblaApi && emblaApi.scrollTo(index),
     [emblaApi]
   );
+  const addSlide = () => {
+    setSlides([
+      ...slides,
+      {
+        id: slides.length + 1,
+        title: "New slide",
+        content: "Add your content here",
+      },
+    ]);
+  };
 
+  const deleteSlide = (id: number) => {
+    if (slides.length > 1) {
+      setSlides(slides.filter((slide) => slide.id !== id));
+      if (currentSlide >= slides.length - 1) {
+        setCurrentSlide(slides.length - 2);
+      }
+    }
+  };
   const onSlideChange = useCallback(() => {
     if (!emblaApi) return;
     setCurrentSlide(emblaApi.selectedScrollSnap());
@@ -74,26 +88,6 @@ export default function Component() {
     // Simulate AI generation delay
     await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsGenerating(false);
-  };
-
-  const addSlide = () => {
-    setSlides([
-      ...slides,
-      {
-        id: slides.length + 1,
-        title: "New slide",
-        content: "Add your content here",
-      },
-    ]);
-  };
-
-  const deleteSlide = (id: number) => {
-    if (slides.length > 1) {
-      setSlides(slides.filter((slide) => slide.id !== id));
-      if (currentSlide >= slides.length - 1) {
-        setCurrentSlide(slides.length - 2);
-      }
-    }
   };
 
   const prevSlide = () => {
@@ -151,63 +145,13 @@ export default function Component() {
         </div>
 
         {/* Slide Controls */}
-        <Card className="mt-6">
-          <CardContent className="p-4">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="font-semibold">Slide Settings</h3>
-              <div className="space-x-2">
-                <Button variant="outline" size="sm" onClick={addSlide}>
-                  Add Slide
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => deleteSlide(slides[currentSlide].id)}
-                >
-                  Delete Slide
-                </Button>
-              </div>
-            </div>
-
-            <Tabs defaultValue="content" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="content">Content</TabsTrigger>
-                <TabsTrigger value="design">Design</TabsTrigger>
-              </TabsList>
-              <TabsContent value="content" className="space-y-4">
-                <div>
-                  <Label htmlFor="title">Title</Label>
-                  <Input
-                    id="title"
-                    value={slides[currentSlide]?.title}
-                    onChange={(e) => {
-                      const newSlides = [...slides];
-                      newSlides[currentSlide].title = e.target.value;
-                      setSlides(newSlides);
-                    }}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="content">Content</Label>
-                  <Textarea
-                    id="content"
-                    value={slides[currentSlide]?.content}
-                    onChange={(e) => {
-                      const newSlides = [...slides];
-                      newSlides[currentSlide].content = e.target.value;
-                      setSlides(newSlides);
-                    }}
-                  />
-                </div>
-              </TabsContent>
-              <TabsContent value="design">
-                <p className="text-sm text-gray-500">
-                  Design settings coming soon...
-                </p>
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
+        <SlideControls
+          slides={slides}
+          currentSlide={currentSlide}
+          onSlidesUpdate={(newSlides) => setSlides(newSlides)}
+          addSlide={addSlide}
+          deleteSlide={deleteSlide}
+        />
       </div>
     </div>
   );
