@@ -105,7 +105,7 @@ const Sidebar = (props: Props) => {
             onClick={() => generateContent(props.pdfRef)}
             disabled={isGenerating}
           >
-            {isGenerating ? "Generating..." : "Generate Carousel"}
+            {isGenerating ? "Downloading..." : "Download Carousel"}
           </Button>
         </div>
 

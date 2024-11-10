@@ -68,6 +68,7 @@ export default function Component() {
   const [headerColor, setHeaderColor] = useState("#000000");
   const [contentColor, setContentColor] = useState("#000000");
   const [blurAmount, setBlurAmount] = useState(0);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const scrollTo = useCallback(
     (index: number) => emblaApi && emblaApi.scrollTo(index),
@@ -121,6 +122,22 @@ export default function Component() {
     if (emblaApi) emblaApi.scrollNext();
   };
 
+  const confirmGenerate = async (prompt: string, numSlides: number) => {
+    setIsGenerating(true);
+    // Simulate AI generation delay
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    const newSlides = Array.from({ length: numSlides }, (_, i) => ({
+      id: i + 1,
+      title: `AI Generated Title ${i + 1} based on: ${prompt}`,
+      content: `AI Generated Content for slide ${i + 1}`,
+    }));
+
+    setSlides(newSlides);
+    setCurrentSlide(0);
+    setIsGenerating(false);
+  };
+
   return (
     <div className="flex  bg-gray-100">
       <div className="w-80 bg-white p-6 border-r">
@@ -171,6 +188,8 @@ export default function Component() {
             onSlidesUpdate={(newSlides) => setSlides(newSlides)}
             addSlide={addSlide}
             deleteSlide={deleteSlide}
+            isGenerating={isGenerating}
+            generateAI={confirmGenerate}
           />
         </div>
       </div>
