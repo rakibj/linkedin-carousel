@@ -37,18 +37,15 @@ const CarouselPages = ({ pdfRef, emblaRef, slides }: Props) => {
           {slides.map((slide) => (
             <div
               key={slide.id}
-              className="embla__slide flex-[0_0_100%] relative"
+              className="embla__slide flex-[0_0_100%]"
+              style={{
+                backgroundImage: imageData ? `url(${imageData})` : undefined,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
             >
-              {/* Background Image */}
-              {imageData && (
-                <img
-                  src={imageData}
-                  alt="Background"
-                  className="absolute top-0 left-0 w-full h-full object-cover z-0"
-                />
-              )}
-              {/* Slide Content */}
-              <div className="relative z-10 aspect-square flex flex-col justify-center p-8">
+              <div className="aspect-square flex flex-col justify-center p-8">
                 <h2 className="text-3xl font-bold mb-4 text-gray-800">
                   {slide.title}
                 </h2>

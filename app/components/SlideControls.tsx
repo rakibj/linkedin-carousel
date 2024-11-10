@@ -24,7 +24,7 @@ const SlideControls = ({
 }: Props) => {
   return (
     <>
-      <Card className="mt-6">
+      <Card>
         <CardContent className="p-4">
           <div className="flex justify-between items-center mb-4">
             <h3 className="font-semibold">Slide Settings</h3>

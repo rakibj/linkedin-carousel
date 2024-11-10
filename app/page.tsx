@@ -108,15 +108,13 @@ export default function Component() {
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 p-6 overflow-y-auto">
+      <div className="grid grid-cols-2 p-6 overflow-y-auto">
         <div className="max-w-xl mx-auto bg-white rounded-lg shadow">
           {/* LinkedIn Post Header */}
           <LinkedInPostHeader />
           <Separator />
-
           {/* Carousel */}
           <CarouselPages pdfRef={pdfRef} emblaRef={emblaRef} slides={slides} />
-
           {/* Carousel Navigation */}
           <div className="px-4 py-2 flex items-center space-x-2">
             <Button variant="outline" size="icon" onClick={prevSlide}>
@@ -139,19 +137,20 @@ export default function Component() {
               <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
-
           {/* LinkedIn Post Footer */}
           <LinkedInPostFooter />
         </div>
 
         {/* Slide Controls */}
-        <SlideControls
-          slides={slides}
-          currentSlide={currentSlide}
-          onSlidesUpdate={(newSlides) => setSlides(newSlides)}
-          addSlide={addSlide}
-          deleteSlide={deleteSlide}
-        />
+        <div className="min-w-xl mx-auto bg-white rounded-lg shadow">
+          <SlideControls
+            slides={slides}
+            currentSlide={currentSlide}
+            onSlidesUpdate={(newSlides) => setSlides(newSlides)}
+            addSlide={addSlide}
+            deleteSlide={deleteSlide}
+          />
+        </div>
       </div>
     </div>
   );
