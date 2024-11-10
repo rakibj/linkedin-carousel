@@ -27,11 +27,11 @@ const SlideControls = ({
       <div className="">
         <Card>
           <CardContent className="p-4">
-            <div className="flex mb-4">
+            <div className="flex ">
               <h3 className="font-semibold">Slide Settings</h3>
             </div>
 
-            <div className="space-x-2">
+            <div className="space-x-2 py-2">
               <Button variant="outline" size="sm" onClick={addSlide}>
                 Add Slide
               </Button>
