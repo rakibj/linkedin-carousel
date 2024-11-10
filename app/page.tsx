@@ -11,6 +11,27 @@ import { Separator } from "@/components/ui/separator";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+const predefinedImages = [
+  "https://picsum.photos/id/1/500/500?blur=10",
+  "https://picsum.photos/id/10/500/500?blur=10",
+  "https://picsum.photos/id/20/500/500?blur=10",
+  "https://picsum.photos/id/30/500/500?blur=10",
+];
+const predefinedFonts = [
+  "Arial",
+  "Helvetica",
+  "Times New Roman",
+  "Courier",
+  "Verdana",
+  "Georgia",
+  "Palatino",
+  "Garamond",
+  "Bookman",
+  "Comic Sans MS",
+  "Trebuchet MS",
+  "Arial Black",
+  "Impact",
+];
 export default function Component() {
   const slideDatabase: Slide[] = [
     {
@@ -41,7 +62,13 @@ export default function Component() {
   const [slides, setSlides] = useState<Slide[]>(slideDatabase);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+  const [backgroundImage, setBackgroundImage] = useState(predefinedImages[0]);
   const pdfRef = useRef<HTMLDivElement>(null);
+  const [selectedFont, setSelectedFont] = useState(predefinedFonts[0]);
+  const [headerColor, setHeaderColor] = useState("#000000");
+  const [contentColor, setContentColor] = useState("#000000");
+  const [blurAmount, setBlurAmount] = useState(0);
+
   const scrollTo = useCallback(
     (index: number) => emblaApi && emblaApi.scrollTo(index),
     [emblaApi]
@@ -90,14 +117,36 @@ export default function Component() {
   return (
     <div className="flex  bg-gray-100">
       <div className="w-80 bg-white p-6 border-r">
-        <Sidebar pdfRef={pdfRef.current!} />
+        <Sidebar
+          pdfRef={pdfRef.current!}
+          setBackgroundImage={setBackgroundImage}
+          predefinedImages={predefinedImages}
+          predefinedFonts={predefinedFonts}
+          selectedFont={selectedFont}
+          setSelectedFont={setSelectedFont}
+          headerColor={headerColor}
+          setHeaderColor={setHeaderColor}
+          contentColor={contentColor}
+          setContentColor={setContentColor}
+          blurAmount={blurAmount}
+          setBlurAmount={setBlurAmount}
+        />
       </div>
 
       <div className="flex flex-col md:flex-row p-6 justify-between space-x-5">
         <div className="max-w-xl mx-auto bg-white rounded-lg shadow">
           <LinkedInPostHeader />
           <Separator />
-          <CarouselPages pdfRef={pdfRef} emblaRef={emblaRef} slides={slides} />
+          <CarouselPages
+            pdfRef={pdfRef}
+            emblaRef={emblaRef}
+            slides={slides}
+            backgroundImage={backgroundImage}
+            selectedFont={selectedFont}
+            headerColor={headerColor}
+            contentColor={contentColor}
+            blurAmount={blurAmount}
+          />
           <CarouselNav
             prevSlide={prevSlide}
             nextSlide={nextSlide}

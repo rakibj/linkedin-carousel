@@ -1,17 +1,36 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
 import { Separator } from "@radix-ui/react-separator";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
+import { Plus } from "lucide-react";
 import React, { useState } from "react";
 
 interface Props {
   pdfRef: HTMLDivElement;
+  predefinedImages: string[];
+  setBackgroundImage: (path: string) => void;
+  predefinedFonts: string[];
+  selectedFont: string;
+  setSelectedFont: (selectedFont: string) => void;
+  headerColor: string;
+  setHeaderColor: (headerColor: string) => void;
+  contentColor: string;
+  setContentColor: (contentColor: string) => void;
+  blurAmount: number;
+  setBlurAmount: (blurAmount: number) => void;
 }
 
-const Sidebar = ({ pdfRef }: Props) => {
+const Sidebar = (props: Props) => {
   const [isGenerating, setIsGenerating] = useState(false);
 
   const exportAsPDF = async (pdfRef: HTMLDivElement) => {
@@ -52,6 +71,22 @@ const Sidebar = ({ pdfRef }: Props) => {
     setIsGenerating(false);
   };
 
+  const handleImageUpload = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    setBackgroundImage: (path: string) => void
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (typeof e.target?.result === "string") {
+          setBackgroundImage(e.target.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <>
       <div className="space-y-6">
@@ -59,7 +94,7 @@ const Sidebar = ({ pdfRef }: Props) => {
           <h2 className="text-xl font-bold mb-4">AI Carousel Generator</h2>
           <Button
             className="w-full bg-blue-600 hover:bg-blue-700"
-            onClick={() => generateContent(pdfRef)}
+            onClick={() => generateContent(props.pdfRef)}
             disabled={isGenerating}
           >
             {isGenerating ? "Generating..." : "Generate Carousel"}
@@ -70,30 +105,79 @@ const Sidebar = ({ pdfRef }: Props) => {
 
         <div className="space-y-4">
           <div>
-            <Label>Template Settings</Label>
-            <Input placeholder="Enter template name" className="mt-2" />
+            <Label>Background Image</Label>
+            <div className="grid grid-cols-6 mt-2">
+              {props.predefinedImages.map((img, index) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={index}
+                  src={img}
+                  alt={`Background ${index + 1}`}
+                  className="w-10 h-auto cursor-pointer border-2 rounded"
+                  onClick={() => props.setBackgroundImage(img)}
+                />
+              ))}
+              <label className="flex items-center justify-center border-2 border-dashed rounded cursor-pointer">
+                <input
+                  type="file"
+                  className="hidden"
+                  onChange={(event) =>
+                    handleImageUpload(event, props.setBackgroundImage)
+                  }
+                  accept="image/*"
+                />
+                <Plus className="w-6 h-6" />
+              </label>
+            </div>
+          </div>
+          <div>
+            <Label>Background Blur</Label>
+            <Slider
+              value={[props.blurAmount]}
+              min={0}
+              max={20}
+              step={1}
+              className="mt-2"
+              onValueChange={(value) => props.setBlurAmount(value[0])}
+            />
+          </div>
+          <div>
+            <Label>Font</Label>
+            <Select
+              value={props.selectedFont}
+              onValueChange={props.setSelectedFont}
+            >
+              <SelectTrigger className="mt-2">
+                <SelectValue placeholder="Select a font" />
+              </SelectTrigger>
+              <SelectContent>
+                {props.predefinedFonts.map((font) => (
+                  <SelectItem key={font} value={font}>
+                    {font}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <div>
-            <Label>Background Color</Label>
-            <div className="flex items-center space-x-2 mt-2">
-              <Input
-                type="color"
-                className="w-10 h-10 p-1"
-                defaultValue="#ffffff"
-              />
-              <span className="text-sm text-gray-500">
-                Select background color
-              </span>
-            </div>
+            <Label>Header Color</Label>
+            <Input
+              type="color"
+              value={props.headerColor}
+              onChange={(e) => props.setHeaderColor(e.target.value)}
+              className="mt-2 h-10"
+            />
           </div>
 
           <div>
-            <Label>Slide Counter</Label>
-            <div className="flex items-center space-x-2 mt-2">
-              <Switch id="counter" />
-              <Label htmlFor="counter">Show slide numbers</Label>
-            </div>
+            <Label>Content Color</Label>
+            <Input
+              type="color"
+              value={props.contentColor}
+              onChange={(e) => props.setContentColor(e.target.value)}
+              className="mt-2 h-10"
+            />
           </div>
         </div>
       </div>
