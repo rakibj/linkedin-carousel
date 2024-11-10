@@ -12,9 +12,9 @@ import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const predefinedImages = [
-  "https://picsum.photos/id/1/500/500?blur=10",
-  "https://picsum.photos/id/10/500/500?blur=10",
   "https://picsum.photos/id/20/500/500?blur=10",
+  "https://picsum.photos/id/10/500/500?blur=10",
+  "https://picsum.photos/id/80/500/500?blur=10",
   "https://picsum.photos/id/30/500/500?blur=10",
 ];
 const predefinedFonts = [
