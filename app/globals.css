@@ -70,3 +70,7 @@ body {
     @apply bg-background text-foreground;
   }
 }
+.pdf-export {
+  margin-top: -20px; /* Adjust as needed */
+  /* Any other styling adjustments can go here */
+}

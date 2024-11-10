@@ -37,7 +37,12 @@ const Sidebar = (props: Props) => {
 
     const jpegQuality = 1;
 
+    // Add 'pdf-export' class to all slides to apply export-specific styling
     const slides = pdfRef.querySelectorAll(".embla__slide");
+    const toAddPdfExports = pdfRef.querySelectorAll("h3");
+    toAddPdfExports.forEach((toAdd) => toAdd.classList.add("pdf-export"));
+
+    // Generate PDF settings based on the first slide's canvas
     const firstSlideCanvas = await html2canvas(slides[0] as HTMLElement, {
       scale: 1.5,
       useCORS: true,
@@ -61,6 +66,9 @@ const Sidebar = (props: Props) => {
       if (i > 0) pdf.addPage([slideWidth, slideHeight]);
       pdf.addImage(imgData, "JPEG", 0, 0, slideWidth, slideHeight);
     }
+
+    // Remove 'pdf-export' class after export to avoid affecting in-app styles
+    toAddPdfExports.forEach((toAdd) => toAdd.classList.remove("pdf-export"));
 
     pdf.save("embla-slides.pdf");
   };

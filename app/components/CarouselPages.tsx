@@ -1,6 +1,7 @@
 import { Slide } from "../Slide";
 import { EmblaViewportRefType } from "embla-carousel-react";
-import React, { useEffect, useState, RefObject } from "react";
+import { ArrowRight } from "lucide-react";
+import { RefObject, useEffect, useState } from "react";
 
 interface Props {
   pdfRef: RefObject<HTMLDivElement>;
@@ -58,19 +59,29 @@ const CarouselPages = (props: Props) => {
               {/* Content Layer */}
               <div className="relative z-10 w-full h-full flex flex-col justify-center p-10">
                 <div className="absolute top-4 left-4 bg-white bg-opacity-75 rounded-full w-10 h-10 flex items-center justify-center text-gray-800 font-bold text-lg shadow-md">
-                  {index + 1}
+                  <h3>{index + 1}</h3>
                 </div>
-                <h2
-                  className="text-3xl font-bold mb-4"
-                  style={{ color: props.headerColor }}
-                >
-                  {slide.title}
-                </h2>
-                <p className="text-xl" style={{ color: props.contentColor }}>
-                  {slide.content}
-                </p>
-                <div className="absolute bottom-4 right-4 text-sm font-medium text-white bg-black bg-opacity-50 px-3 py-1 rounded-full shadow-md">
-                  {index === props.slides.length - 1 ? "Last Slide" : "Swipe"}
+                <div className="">
+                  <h2
+                    className="text-3xl font-bold mb-4"
+                    style={{ color: props.headerColor }}
+                  >
+                    {slide.title}
+                  </h2>
+                </div>
+                <div className="">
+                  <p className="text-xl" style={{ color: props.contentColor }}>
+                    {slide.content}
+                  </p>
+                </div>
+                <div className="absolute bottom-4 right-4 ">
+                  <h3 className="pdf-export">
+                    {index === props.slides.length - 1 ? (
+                      ""
+                    ) : (
+                      <ArrowRight size="30" />
+                    )}
+                  </h3>
                 </div>
               </div>
             </div>
