@@ -8,7 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
 import { Separator } from "@radix-ui/react-separator";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
@@ -41,6 +40,7 @@ const Sidebar = (props: Props) => {
     const slides = pdfRef.querySelectorAll(".embla__slide");
     const firstSlideCanvas = await html2canvas(slides[0] as HTMLElement, {
       scale: 1.5,
+      useCORS: true,
     });
     const slideWidth = firstSlideCanvas.width;
     const slideHeight = firstSlideCanvas.height;
@@ -130,7 +130,7 @@ const Sidebar = (props: Props) => {
               </label>
             </div>
           </div>
-          <div>
+          {/* <div>
             <Label>Background Blur</Label>
             <Slider
               value={[props.blurAmount]}
@@ -140,7 +140,7 @@ const Sidebar = (props: Props) => {
               className="mt-2"
               onValueChange={(value) => props.setBlurAmount(value[0])}
             />
-          </div>
+          </div> */}
           <div>
             <Label>Font</Label>
             <Select
