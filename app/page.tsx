@@ -40,7 +40,6 @@ export default function Component() {
   ];
   const [slides, setSlides] = useState<Slide[]>(slideDatabase);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isGenerating, setIsGenerating] = useState(false);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const pdfRef = useRef<HTMLDivElement>(null);
   const scrollTo = useCallback(
@@ -80,13 +79,6 @@ export default function Component() {
     };
   }, [emblaApi, onSlideChange]);
 
-  const generateContent = async () => {
-    setIsGenerating(true);
-    // Simulate AI generation delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsGenerating(false);
-  };
-
   const prevSlide = () => {
     if (emblaApi) emblaApi.scrollPrev();
   };
@@ -98,11 +90,7 @@ export default function Component() {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Settings Sidebar */}
-      <Sidebar
-        isGenerating={isGenerating}
-        generateContent={generateContent}
-        pdfRef={pdfRef.current!}
-      />
+      <Sidebar pdfRef={pdfRef.current!} />
 
       {/* Main Content Area */}
       <div className="grid grid-cols-2 p-6 overflow-y-auto">

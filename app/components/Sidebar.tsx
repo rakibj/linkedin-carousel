@@ -5,59 +5,62 @@ import { Switch } from "@/components/ui/switch";
 import { Separator } from "@radix-ui/react-separator";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
-import React from "react";
-
-const exportAsPDF = async (pdfRef: HTMLDivElement) => {
-  if (!pdfRef) return;
-
-  const jpegQuality = 1;
-
-  const slides = pdfRef.querySelectorAll(".embla__slide");
-  const firstSlideCanvas = await html2canvas(slides[0] as HTMLElement, {
-    scale: 1.5,
-  });
-  const slideWidth = firstSlideCanvas.width;
-  const slideHeight = firstSlideCanvas.height;
-
-  const pdf = new jsPDF({
-    orientation: "portrait",
-    unit: "px",
-    format: [slideWidth, slideHeight],
-    compress: true,
-  });
-
-  for (let i = 0; i < slides.length; i++) {
-    const slide = slides[i] as HTMLElement;
-
-    const canvas = await html2canvas(slide, { scale: 1.5, useCORS: true });
-    const imgData = canvas.toDataURL("image/jpeg", jpegQuality);
-
-    if (i > 0) pdf.addPage([slideWidth, slideHeight]);
-    pdf.addImage(imgData, "JPEG", 0, 0, slideWidth, slideHeight);
-  }
-
-  pdf.save("embla-slides.pdf");
-};
+import React, { useState } from "react";
 
 interface Props {
-  isGenerating: boolean;
-  generateContent: () => void;
   pdfRef: HTMLDivElement;
 }
 
-const Sidebar = ({ isGenerating, generateContent, pdfRef }: Props) => {
+const Sidebar = ({ pdfRef }: Props) => {
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const exportAsPDF = async (pdfRef: HTMLDivElement) => {
+    if (!pdfRef) return;
+
+    const jpegQuality = 1;
+
+    const slides = pdfRef.querySelectorAll(".embla__slide");
+    const firstSlideCanvas = await html2canvas(slides[0] as HTMLElement, {
+      scale: 1.5,
+    });
+    const slideWidth = firstSlideCanvas.width;
+    const slideHeight = firstSlideCanvas.height;
+
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: [slideWidth, slideHeight],
+      compress: true,
+    });
+
+    for (let i = 0; i < slides.length; i++) {
+      const slide = slides[i] as HTMLElement;
+
+      const canvas = await html2canvas(slide, { scale: 1.5, useCORS: true });
+      const imgData = canvas.toDataURL("image/jpeg", jpegQuality);
+
+      if (i > 0) pdf.addPage([slideWidth, slideHeight]);
+      pdf.addImage(imgData, "JPEG", 0, 0, slideWidth, slideHeight);
+    }
+
+    pdf.save("embla-slides.pdf");
+  };
+
+  const generateContent = async (pdfRef: HTMLDivElement) => {
+    setIsGenerating(true);
+    await exportAsPDF(pdfRef);
+    setIsGenerating(false);
+  };
+
   return (
     <>
       <div className="w-80 bg-white p-6 border-r overflow-y-auto">
-        <Button variant="outline" size="sm" onClick={() => exportAsPDF(pdfRef)}>
-          Download PDF
-        </Button>
         <div className="space-y-6">
           <div>
             <h2 className="text-xl font-bold mb-4">AI Carousel Generator</h2>
             <Button
               className="w-full bg-blue-600 hover:bg-blue-700"
-              onClick={generateContent}
+              onClick={() => generateContent(pdfRef)}
               disabled={isGenerating}
             >
               {isGenerating ? "Generating..." : "Generate Carousel"}
