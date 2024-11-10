@@ -122,15 +122,49 @@ export default function Component() {
     if (emblaApi) emblaApi.scrollNext();
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const confirmGenerate = async (prompt: string, numSlides: number) => {
+    //const requestPrompt = `Generate a list of ${numSlides} slides based on this input prompt: "${prompt}"`;
+    const result = {
+      slides: [
+        {
+          title: "Introduction to Unity Netcode",
+          content:
+            "Unity Netcode is a powerful framework that enables multiplayer game development. It manages network communication efficiently, ensuring fluid gameplay experiences.",
+        },
+        {
+          title: "GameObjects and Networking",
+          content:
+            "In Unity, GameObjects serve as the foundational elements of your game. Netcode facilitates syncing these objects across clients, allowing for collaborative interactions in real time.",
+        },
+        {
+          title: "Spawning GameObjects",
+          content:
+            "The spawning system allows developers to create objects dynamically during gameplay. Utilize the Server's authority for spawning and manage client interactions seamlessly.",
+        },
+        {
+          title: "State Synchronization",
+          content:
+            "Netcode handles the synchronization of GameObject states. This ensures all players see consistent game states, enhancing the overall multiplayer experience.",
+        },
+        {
+          title: "Best Practices for Implementation",
+          content:
+            "Keep network traffic minimal by optimizing data sent over the network. Leverage Unity's built-in tools to debug and monitor your networking performance efficiently.",
+        },
+      ],
+    };
+
     setIsGenerating(true);
+
     // Simulate AI generation delay
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    const newSlides = Array.from({ length: numSlides }, (_, i) => ({
+    // Use predefined `result` data to generate the slides
+    const newSlides = result.slides.map((slide, i) => ({
       id: i + 1,
-      title: `AI Generated Title ${i + 1} based on: ${prompt}`,
-      content: `AI Generated Content for slide ${i + 1}`,
+      title: slide.title,
+      content: slide.content,
     }));
 
     setSlides(newSlides);
