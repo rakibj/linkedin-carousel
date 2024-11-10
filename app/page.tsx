@@ -1,16 +1,14 @@
 "use client";
 
 import { Slide } from "./Slide";
+import CarouselNav from "./components/CarouselNav";
 import CarouselPages from "./components/CarouselPages";
 import LinkedInPostFooter from "./components/LinkedinPostFooter";
 import LinkedInPostHeader from "./components/LinkedinPostHeader";
 import Sidebar from "./components/Sidebar";
 import SlideControls from "./components/SlideControls";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Slider } from "@/components/ui/slider";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function Component() {
@@ -45,7 +43,6 @@ export default function Component() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const pdfRef = useRef<HTMLDivElement>(null);
-
   const scrollTo = useCallback(
     (index: number) => emblaApi && emblaApi.scrollTo(index),
     [emblaApi]
@@ -115,33 +112,17 @@ export default function Component() {
           <Separator />
           {/* Carousel */}
           <CarouselPages pdfRef={pdfRef} emblaRef={emblaRef} slides={slides} />
-          {/* Carousel Navigation */}
-          <div className="px-4 py-2 flex items-center space-x-2">
-            <Button variant="outline" size="icon" onClick={prevSlide}>
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <div className="flex-1 flex items-center space-x-2">
-              <Slider
-                value={[currentSlide]}
-                min={0}
-                max={slides.length - 1}
-                step={1}
-                className="flex-1"
-                onValueChange={(value) => scrollTo(value[0])}
-              />
-              <span className="text-sm text-gray-500 min-w-[40px] text-center">
-                {currentSlide + 1} / {slides.length}
-              </span>
-            </div>
-            <Button variant="outline" size="icon" onClick={nextSlide}>
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-          {/* LinkedIn Post Footer */}
+          <CarouselNav
+            prevSlide={prevSlide}
+            nextSlide={nextSlide}
+            scrollTo={scrollTo}
+            currentSlide={currentSlide}
+            slides={slides}
+          />
+
           <LinkedInPostFooter />
         </div>
 
-        {/* Slide Controls */}
         <div className="min-w-xl mx-auto bg-white rounded-lg shadow">
           <SlideControls
             slides={slides}
