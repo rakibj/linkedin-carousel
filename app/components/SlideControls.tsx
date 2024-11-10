@@ -35,13 +35,15 @@ const SlideControls = ({
               <Button variant="outline" size="sm" onClick={addSlide}>
                 Add Slide
               </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => deleteSlide(currentSlide)}
-              >
-                Delete Slide
-              </Button>
+              {slides.length > 3 && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => deleteSlide(slides[currentSlide].id)}
+                >
+                  Delete Slide
+                </Button>
+              )}
             </div>
 
             <Tabs defaultValue="content" className="w-full">

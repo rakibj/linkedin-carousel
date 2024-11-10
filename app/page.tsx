@@ -77,20 +77,27 @@ export default function Component() {
     setSlides([
       ...slides,
       {
-        id: slides.length + 1,
+        id: Date.now(),
         title: "New slide",
         content: "Add your content here",
       },
     ]);
+    setTimeout(() => {
+      emblaApi?.scrollTo(slides.length);
+    }, 0);
   };
 
   const deleteSlide = (id: number) => {
-    if (slides.length > 1) {
-      setSlides(slides.filter((slide) => slide.id !== id));
-      if (currentSlide >= slides.length - 1) {
-        setCurrentSlide(slides.length - 2);
-      }
-    }
+    setSlides((prevSlides) => {
+      if (prevSlides.length <= 1) return prevSlides; // Ensure at least one slide remains
+      const newSlides = prevSlides.filter((slide) => slide.id !== id);
+      setCurrentSlide((prevCurrentSlide) =>
+        prevCurrentSlide >= newSlides.length
+          ? newSlides.length - 1
+          : prevCurrentSlide
+      );
+      return newSlides;
+    });
   };
   const onSlideChange = useCallback(() => {
     if (!emblaApi) return;
