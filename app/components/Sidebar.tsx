@@ -29,7 +29,7 @@ const exportAsPDF = async (pdfRef: HTMLDivElement) => {
   for (let i = 0; i < slides.length; i++) {
     const slide = slides[i] as HTMLElement;
 
-    const canvas = await html2canvas(slide, { scale: 1.5 });
+    const canvas = await html2canvas(slide, { scale: 1.5, useCORS: true });
     const imgData = canvas.toDataURL("image/jpeg", jpegQuality);
 
     if (i > 0) pdf.addPage([slideWidth, slideHeight]);
