@@ -79,7 +79,7 @@ const CarouselPages = (props: Props) => {
                     {index === props.slides.length - 1 ? (
                       ""
                     ) : (
-                      <ArrowRight size="30" />
+                      <ArrowRight size="30" color={props.headerColor} />
                     )}
                   </h3>
                 </div>

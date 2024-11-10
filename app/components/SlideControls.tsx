@@ -28,26 +28,25 @@ const SlideControls = (props: Props) => {
     <>
       <div className="">
         <Card>
-          <CardContent className="p-4">
-            <div className="flex ">
+          <CardContent className="">
+            <div className="flex justify-between items-center py-3">
               <h3 className="font-semibold">Slide Settings</h3>
-            </div>
-
-            <div className="space-x-2 py-2">
-              <Button variant="outline" size="sm" onClick={props.addSlide}>
-                Add Slide
-              </Button>
-              {props.slides.length > 3 && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() =>
-                    props.deleteSlide(props.slides[props.currentSlide].id)
-                  }
-                >
-                  Delete Slide
+              <div className="space-x-2 py-2">
+                <Button variant="outline" size="sm" onClick={props.addSlide}>
+                  Add Slide
                 </Button>
-              )}
+                {props.slides.length > 3 && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() =>
+                      props.deleteSlide(props.slides[props.currentSlide].id)
+                    }
+                  >
+                    Delete Slide
+                  </Button>
+                )}
+              </div>
             </div>
 
             <Tabs defaultValue="content" className="w-full">
@@ -83,11 +82,13 @@ const SlideControls = (props: Props) => {
               </TabsContent>
               <TabsContent value="ai" className="space-y-4">
                 <div>
-                  <Label htmlFor="ai-prompt">AI Prompt</Label>
+                  <Label htmlFor="ai-prompt">
+                    What do you want the content about?
+                  </Label>
                   <Textarea
                     id="ai-prompt"
                     placeholder="Enter your prompt for AI generation"
-                    className="mt-1"
+                    className="mt-1 h-40"
                     value={aiPrompt}
                     onChange={(e) => setAiPrompt(e.target.value)}
                   />
