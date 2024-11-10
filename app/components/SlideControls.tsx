@@ -24,10 +24,13 @@ const SlideControls = ({
 }: Props) => {
   return (
     <>
-      <Card>
-        <CardContent className="p-4">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="font-semibold">Slide Settings</h3>
+      <div className="">
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex mb-4">
+              <h3 className="font-semibold">Slide Settings</h3>
+            </div>
+
             <div className="space-x-2">
               <Button variant="outline" size="sm" onClick={addSlide}>
                 Add Slide
@@ -40,47 +43,47 @@ const SlideControls = ({
                 Delete Slide
               </Button>
             </div>
-          </div>
 
-          <Tabs defaultValue="content" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="content">Content</TabsTrigger>
-              <TabsTrigger value="design">Design</TabsTrigger>
-            </TabsList>
-            <TabsContent value="content" className="space-y-4">
-              <div>
-                <Label htmlFor="title">Title</Label>
-                <Input
-                  id="title"
-                  value={slides[currentSlide]?.title}
-                  onChange={(e) => {
-                    const newSlides = [...slides];
-                    newSlides[currentSlide].title = e.target.value;
-                    onSlidesUpdate(newSlides);
-                  }}
-                />
-              </div>
-              <div>
-                <Label htmlFor="content">Content</Label>
-                <Textarea
-                  id="content"
-                  value={slides[currentSlide]?.content}
-                  onChange={(e) => {
-                    const newSlides = [...slides];
-                    newSlides[currentSlide].content = e.target.value;
-                    onSlidesUpdate(newSlides);
-                  }}
-                />
-              </div>
-            </TabsContent>
-            <TabsContent value="design">
-              <p className="text-sm text-gray-500">
-                Design settings coming soon...
-              </p>
-            </TabsContent>
-          </Tabs>
-        </CardContent>
-      </Card>
+            <Tabs defaultValue="content" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="content">Content</TabsTrigger>
+                <TabsTrigger value="design">Design</TabsTrigger>
+              </TabsList>
+              <TabsContent value="content" className="space-y-4">
+                <div>
+                  <Label htmlFor="title">Title</Label>
+                  <Input
+                    id="title"
+                    value={slides[currentSlide]?.title}
+                    onChange={(e) => {
+                      const newSlides = [...slides];
+                      newSlides[currentSlide].title = e.target.value;
+                      onSlidesUpdate(newSlides);
+                    }}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="content">Content</Label>
+                  <Textarea
+                    id="content"
+                    value={slides[currentSlide]?.content}
+                    onChange={(e) => {
+                      const newSlides = [...slides];
+                      newSlides[currentSlide].content = e.target.value;
+                      onSlidesUpdate(newSlides);
+                    }}
+                  />
+                </div>
+              </TabsContent>
+              <TabsContent value="design">
+                <p className="text-sm text-gray-500">
+                  Design settings coming soon...
+                </p>
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
+      </div>
     </>
   );
 };

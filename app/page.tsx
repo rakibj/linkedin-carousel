@@ -88,17 +88,15 @@ export default function Component() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Settings Sidebar */}
-      <Sidebar pdfRef={pdfRef.current!} />
+    <div className="flex  bg-gray-100">
+      <div className="w-80 bg-white p-6 border-r">
+        <Sidebar pdfRef={pdfRef.current!} />
+      </div>
 
-      {/* Main Content Area */}
-      <div className="grid grid-cols-2 p-6 overflow-y-auto">
+      <div className="flex flex-col md:flex-row p-6 justify-between space-x-5">
         <div className="max-w-xl mx-auto bg-white rounded-lg shadow">
-          {/* LinkedIn Post Header */}
           <LinkedInPostHeader />
           <Separator />
-          {/* Carousel */}
           <CarouselPages pdfRef={pdfRef} emblaRef={emblaRef} slides={slides} />
           <CarouselNav
             prevSlide={prevSlide}
@@ -107,11 +105,10 @@ export default function Component() {
             currentSlide={currentSlide}
             slides={slides}
           />
-
           <LinkedInPostFooter />
         </div>
 
-        <div className="min-w-xl mx-auto bg-white rounded-lg shadow">
+        <div className="min-w-full">
           <SlideControls
             slides={slides}
             currentSlide={currentSlide}
