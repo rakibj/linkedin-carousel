@@ -20,7 +20,7 @@ export async function getSlidesFromAi(
 
     console.log("message sent");
 
-    const assistantId = "asst_4UtFp2foXiKKPytAoEEYob74";
+    const assistantId = "asst_yANDmEn3nM3EueaegK2KOOhr";
 
     const runResponse = await axios.get("/api/run/create", {
       params: {
@@ -104,6 +104,7 @@ export const predefinedImages = [
   "https://picsum.photos/id/60/500/500?blur=10",
   "https://picsum.photos/id/393/500/500?blur=10",
 ];
+
 export const slideDatabase: Slide[] = [
   {
     id: 1,

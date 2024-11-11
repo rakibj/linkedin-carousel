@@ -77,6 +77,7 @@ const SlideControls = (props: Props) => {
                       newSlides[props.currentSlide].content = e.target.value;
                       props.onSlidesUpdate(newSlides);
                     }}
+                    className="min-h-40"
                   />
                 </div>
               </TabsContent>

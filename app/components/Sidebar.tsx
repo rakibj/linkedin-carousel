@@ -39,7 +39,7 @@ const Sidebar = (props: Props) => {
 
     // Add 'pdf-export' class to all slides to apply export-specific styling
     const slides = pdfRef.querySelectorAll(".embla__slide");
-    const toAddPdfExports = pdfRef.querySelectorAll("h3");
+    const toAddPdfExports = pdfRef.querySelectorAll("h3, h2");
     toAddPdfExports.forEach((toAdd) => toAdd.classList.add("pdf-export"));
 
     // Generate PDF settings based on the first slide's canvas
