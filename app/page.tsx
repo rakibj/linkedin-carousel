@@ -7,59 +7,17 @@ import LinkedInPostFooter from "./components/LinkedinPostFooter";
 import LinkedInPostHeader from "./components/LinkedinPostHeader";
 import Sidebar from "./components/Sidebar";
 import SlideControls from "./components/SlideControls";
-import { getSlidesFromAi } from "./utilities/carouselGenerator";
+import {
+  getSlidesFromAi,
+  predefinedFonts,
+  predefinedImages,
+  slideDatabase,
+} from "./utilities/carouselGenerator";
 import { Separator } from "@/components/ui/separator";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const predefinedImages = [
-  "https://picsum.photos/id/20/500/500?blur=10",
-  "https://picsum.photos/id/100/500/500?blur=10",
-  "https://picsum.photos/id/60/500/500?blur=10",
-  "https://picsum.photos/id/393/500/500?blur=10",
-];
-const predefinedFonts = [
-  "Arial",
-  "Helvetica",
-  "Times New Roman",
-  "Courier",
-  "Verdana",
-  "Georgia",
-  "Palatino",
-  "Garamond",
-  "Bookman",
-  "Comic Sans MS",
-  "Trebuchet MS",
-  "Arial Black",
-  "Impact",
-];
 export default function Component() {
-  const slideDatabase: Slide[] = [
-    {
-      id: 1,
-      title: "Boost Your LinkedIn Presence",
-      content:
-        "Learn how to create engaging carousel posts that captivate your audience.",
-    },
-    {
-      id: 2,
-      title: "Craft Compelling Content",
-      content:
-        "Discover the secrets to writing headlines and copy that drive engagement.",
-    },
-    {
-      id: 3,
-      title: "Optimize Your Design",
-      content:
-        "Use eye-catching visuals and layouts to make your carousels stand out.",
-    },
-    {
-      id: 4,
-      title: "Measure Your Success",
-      content:
-        "Track key metrics to continually improve your carousel performance.",
-    },
-  ];
   const [slides, setSlides] = useState<Slide[]>(slideDatabase);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });

@@ -1,10 +1,5 @@
+import { Slide } from "../Slide";
 import axios from "axios";
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface Slide {
-  title: string;
-  content: string;
-}
 
 export async function getSlidesFromAi(
   prompt: string,
@@ -88,3 +83,50 @@ export async function getSlidesFromAi(
 
   return null;
 }
+export const predefinedFonts = [
+  "Arial",
+  "Helvetica",
+  "Times New Roman",
+  "Courier",
+  "Verdana",
+  "Georgia",
+  "Palatino",
+  "Garamond",
+  "Bookman",
+  "Comic Sans MS",
+  "Trebuchet MS",
+  "Arial Black",
+  "Impact",
+];
+export const predefinedImages = [
+  "https://picsum.photos/id/20/500/500?blur=10",
+  "https://picsum.photos/id/100/500/500?blur=10",
+  "https://picsum.photos/id/60/500/500?blur=10",
+  "https://picsum.photos/id/393/500/500?blur=10",
+];
+export const slideDatabase: Slide[] = [
+  {
+    id: 1,
+    title: "Boost Your LinkedIn Presence",
+    content:
+      "Learn how to create engaging carousel posts that captivate your audience.",
+  },
+  {
+    id: 2,
+    title: "Craft Compelling Content",
+    content:
+      "Discover the secrets to writing headlines and copy that drive engagement.",
+  },
+  {
+    id: 3,
+    title: "Optimize Your Design",
+    content:
+      "Use eye-catching visuals and layouts to make your carousels stand out.",
+  },
+  {
+    id: 4,
+    title: "Measure Your Success",
+    content:
+      "Track key metrics to continually improve your carousel performance.",
+  },
+];
