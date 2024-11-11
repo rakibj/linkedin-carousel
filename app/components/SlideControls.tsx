@@ -86,7 +86,7 @@ const SlideControls = (props: Props) => {
                   <Textarea
                     id="ai-prompt"
                     placeholder="Enter your prompt for AI generation"
-                    className="mt-1 h-40"
+                    className="mt-1 h-80"
                     value={aiPrompt}
                     onChange={(e) => setAiPrompt(e.target.value)}
                   />

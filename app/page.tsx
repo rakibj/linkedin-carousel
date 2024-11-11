@@ -123,20 +123,13 @@ export default function Component() {
     if (emblaApi) emblaApi.scrollNext();
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const confirmGenerate = async (prompt: string, numSlides: number) => {
-    //const requestPrompt = `Generate a list of ${numSlides} slides based on this input prompt: "${prompt}"`;
     setIsGenerating(true);
     const slides = await getSlidesFromAi(prompt, numSlides);
     if (!slides) {
       setIsGenerating(false);
       return;
     }
-
-    // Simulate AI generation delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    // Use predefined `result` data to generate the slides
     const newSlides = slides.map((slide, i) => ({
       id: i + 1,
       title: slide.title,
@@ -146,6 +139,9 @@ export default function Component() {
     setSlides(newSlides);
     setCurrentSlide(0);
     setIsGenerating(false);
+    setTimeout(() => {
+      emblaApi?.scrollTo(0);
+    }, 0);
   };
 
   return (
