@@ -16,7 +16,7 @@ const predefinedImages = [
   "https://picsum.photos/id/20/500/500?blur=10",
   "https://picsum.photos/id/100/500/500?blur=10",
   "https://picsum.photos/id/60/500/500?blur=10",
-  "https://picsum.photos/id/392/500/500?blur=10",
+  "https://picsum.photos/id/393/500/500?blur=10",
 ];
 const predefinedFonts = [
   "Arial",
