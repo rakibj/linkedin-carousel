@@ -93,7 +93,7 @@ const SlideControls = (props: Props) => {
                 </div>
                 <div>
                   <Label htmlFor="num-slides">
-                    Number of Slides: {numSlides}
+                    Suggest Number of Slides: {numSlides}
                   </Label>
                   <Slider
                     id="num-slides"

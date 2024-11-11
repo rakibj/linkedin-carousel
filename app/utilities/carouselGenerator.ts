@@ -12,15 +12,13 @@ export async function getSlidesFromAi(
 ): Promise<Slide[] | null> {
   console.log("Prompt: " + prompt + "\nNumber of Slides: " + numSlides);
   try {
-    const threadResponse = await axios.get(
-      "http://localhost:3000/api/thread/create"
-    );
+    const threadResponse = await axios.get("/api/thread/create");
     console.log(threadResponse);
     const threadId = threadResponse.data;
     if (!threadId) throw new Error("Failed to create thread");
 
     const messageContent = `${prompt}, ${numSlides}`;
-    await axios.post(`http://localhost:3000/api/message/create`, {
+    await axios.post(`/api/message/create`, {
       message: messageContent,
       threadId: threadId,
     });
@@ -29,15 +27,12 @@ export async function getSlidesFromAi(
 
     const assistantId = "asst_4UtFp2foXiKKPytAoEEYob74";
 
-    const runResponse = await axios.get(
-      "http://localhost:3000/api/run/create",
-      {
-        params: {
-          threadId: threadId,
-          assistantId: assistantId,
-        },
-      }
-    );
+    const runResponse = await axios.get("/api/run/create", {
+      params: {
+        threadId: threadId,
+        assistantId: assistantId,
+      },
+    });
     console.log(runResponse);
     const runId = runResponse.data?.id;
     if (!runId) throw new Error("Failed to create run");
@@ -47,27 +42,21 @@ export async function getSlidesFromAi(
     let runComplete = false;
     while (!runComplete) {
       await new Promise((resolve) => setTimeout(resolve, 500)); // Wait 0.5 seconds
-      const runStatusResponse = await axios.get(
-        "http://localhost:3000/api/run/retrieve",
-        {
-          params: {
-            threadId: threadId,
-            runId: runId,
-          },
-        }
-      );
+      const runStatusResponse = await axios.get("/api/run/retrieve", {
+        params: {
+          threadId: threadId,
+          runId: runId,
+        },
+      });
       console.log(runStatusResponse);
       runComplete = runStatusResponse.data.run.status === "completed";
     }
 
     console.log("run is complete");
 
-    const result = await axios.get(
-      "http://localhost:3000/api/thread/messages",
-      {
-        params: { threadId: threadId },
-      }
-    );
+    const result = await axios.get("/api/thread/messages", {
+      params: { threadId: threadId },
+    });
 
     console.log(
       "###########################################\n" +
