@@ -126,8 +126,12 @@ export default function Component() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const confirmGenerate = async (prompt: string, numSlides: number) => {
     //const requestPrompt = `Generate a list of ${numSlides} slides based on this input prompt: "${prompt}"`;
-    const slides = getSlidesFromAi(prompt, numSlides);
     setIsGenerating(true);
+    const slides = await getSlidesFromAi(prompt, numSlides);
+    if (!slides) {
+      setIsGenerating(false);
+      return;
+    }
 
     // Simulate AI generation delay
     await new Promise((resolve) => setTimeout(resolve, 2000));

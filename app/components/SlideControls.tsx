@@ -82,9 +82,7 @@ const SlideControls = (props: Props) => {
               </TabsContent>
               <TabsContent value="ai" className="space-y-4">
                 <div>
-                  <Label htmlFor="ai-prompt">
-                    What do you want the content about?
-                  </Label>
+                  <Label htmlFor="ai-prompt">📝 Add your notes below</Label>
                   <Textarea
                     id="ai-prompt"
                     placeholder="Enter your prompt for AI generation"

@@ -20,9 +20,9 @@ export async function GET(request: NextRequest) {
       assistant_id: assistantId,
     });
 
-    console.log({ run: run });
+    console.log(run);
 
-    return Response.json({ run: run });
+    return Response.json(run);
   } catch (e) {
     console.log(e);
     return NextResponse.json({ error: e });
