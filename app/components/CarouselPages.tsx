@@ -102,3 +102,8 @@ const CarouselPages = (props: Props) => {
 };
 
 export default CarouselPages;
+
+export const metadata = {
+  title: "Carousel Generator",
+  description: "Generate Carousel using AI",
+};

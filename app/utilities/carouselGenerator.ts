@@ -99,10 +99,22 @@ export const predefinedFonts = [
   "Impact",
 ];
 export const predefinedImages = [
-  "https://picsum.photos/id/20/500/500?blur=10",
+  "https://picsum.photos/id/119/500/500?blur=10",
   "https://picsum.photos/id/100/500/500?blur=10",
-  "https://picsum.photos/id/60/500/500?blur=10",
-  "https://picsum.photos/id/393/500/500?blur=10",
+  "https://picsum.photos/id/130/500/500?blur=10",
+  "https://picsum.photos/id/135/500/500?blur=10",
+  "https://picsum.photos/id/149/500/500?blur=10",
+  "https://picsum.photos/id/171/500/500?blur=10",
+  "https://picsum.photos/id/186/500/500?blur=10",
+  "https://picsum.photos/id/196/500/500?blur=10",
+  "https://picsum.photos/id/210/500/500?blur=10",
+  "https://picsum.photos/id/213/500/500?blur=10",
+  "https://picsum.photos/id/229/500/500?blur=10",
+  "https://picsum.photos/id/249/500/500?blur=10",
+  "https://picsum.photos/id/254/500/500?blur=10",
+  "https://picsum.photos/id/266/500/500?blur=10",
+  "https://picsum.photos/id/282/500/500?blur=10",
+  "https://picsum.photos/id/302/500/500?blur=10",
 ];
 
 export const slideDatabase: Slide[] = [
