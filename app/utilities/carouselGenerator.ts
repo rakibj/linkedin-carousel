@@ -4,13 +4,8 @@ interface Slide {
   content: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function getSlidesFromAi(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  prompt: string,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  numSlides: number
-): Slide[] {
+export function getSlidesFromAi(prompt: string, numSlides: number): Slide[] {
+  console.log("" + prompt + "  " + numSlides);
   const slides = [
     {
       title: "Introduction to Unity Netcode",
