@@ -121,8 +121,8 @@ export default function Component() {
         />
       </div>
 
-      <div className="flex flex-col md:flex-row p-6 justify-between space-x-5">
-        <div className="max-w-xl mx-auto bg-white rounded-lg shadow">
+      <div className="flex flex-col md:flex-row p-6 justify-between">
+        <div className="max-w-xl mx-auto bg-white rounded-2xl shadow mb-5">
           <LinkedInPostHeader />
           <Separator />
           <CarouselPages
@@ -145,7 +145,7 @@ export default function Component() {
           <LinkedInPostFooter />
         </div>
 
-        <div className="min-w-full">
+        <div className="mx-5 shadow">
           <SlideControls
             slides={slides}
             currentSlide={currentSlide}

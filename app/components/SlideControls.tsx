@@ -29,7 +29,7 @@ const SlideControls = (props: Props) => {
       <div className="">
         <Card>
           <CardContent className="">
-            <div className="flex justify-between items-center py-3">
+            <div className="flex justify-between items-center py-3 space-x-20">
               <h3 className="font-semibold">Slide Settings</h3>
               <div className="space-x-2 py-2">
                 <Button variant="outline" size="sm" onClick={props.addSlide}>
@@ -49,38 +49,11 @@ const SlideControls = (props: Props) => {
               </div>
             </div>
 
-            <Tabs defaultValue="content" className="w-full">
+            <Tabs defaultValue="ai" className="w-full">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="content">Content</TabsTrigger>
                 <TabsTrigger value="ai">AI Prompt</TabsTrigger>
+                <TabsTrigger value="content">Content</TabsTrigger>
               </TabsList>
-              <TabsContent value="content" className="space-y-4">
-                <div>
-                  <Label htmlFor="title">Title</Label>
-                  <Input
-                    id="title"
-                    value={props.slides[props.currentSlide]?.title}
-                    onChange={(e) => {
-                      const newSlides = [...props.slides];
-                      newSlides[props.currentSlide].title = e.target.value;
-                      props.onSlidesUpdate(newSlides);
-                    }}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="content">Content</Label>
-                  <Textarea
-                    id="content"
-                    value={props.slides[props.currentSlide]?.content}
-                    onChange={(e) => {
-                      const newSlides = [...props.slides];
-                      newSlides[props.currentSlide].content = e.target.value;
-                      props.onSlidesUpdate(newSlides);
-                    }}
-                    className="min-h-40"
-                  />
-                </div>
-              </TabsContent>
               <TabsContent value="ai" className="space-y-4">
                 <div>
                   <Label htmlFor="ai-prompt">📝 Add your notes below</Label>
@@ -113,6 +86,33 @@ const SlideControls = (props: Props) => {
                 >
                   {props.isGenerating ? "Generating..." : "Generate"}
                 </Button>
+              </TabsContent>
+              <TabsContent value="content" className="space-y-4">
+                <div>
+                  <Label htmlFor="title">Title</Label>
+                  <Input
+                    id="title"
+                    value={props.slides[props.currentSlide]?.title}
+                    onChange={(e) => {
+                      const newSlides = [...props.slides];
+                      newSlides[props.currentSlide].title = e.target.value;
+                      props.onSlidesUpdate(newSlides);
+                    }}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="content">Content</Label>
+                  <Textarea
+                    id="content"
+                    value={props.slides[props.currentSlide]?.content}
+                    onChange={(e) => {
+                      const newSlides = [...props.slides];
+                      newSlides[props.currentSlide].content = e.target.value;
+                      props.onSlidesUpdate(newSlides);
+                    }}
+                    className="min-h-40"
+                  />
+                </div>
               </TabsContent>
             </Tabs>
           </CardContent>
